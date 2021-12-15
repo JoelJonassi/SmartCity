@@ -1,0 +1,3 @@
+C:/Users/Asus/CLionProjects/ESI_PI_19698 - REPO/pi_repository/cmake-build-debug/CMakeFiles/pi_repository.dir
+C:/Users/Asus/CLionProjects/ESI_PI_19698 - REPO/pi_repository/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Asus/CLionProjects/ESI_PI_19698 - REPO/pi_repository/cmake-build-debug/CMakeFiles/rebuild_cache.dir
