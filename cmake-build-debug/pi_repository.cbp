@@ -74,6 +74,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="C:/Users/Asus/CLionProjects/ESI_PI_19698 - REPO/pi_repository/funcoes.c">
+			<Option target="pi_repository"/>
+		</Unit>
+		<Unit filename="C:/Users/Asus/CLionProjects/ESI_PI_19698 - REPO/pi_repository/funcoes.h">
+			<Option target="pi_repository"/>
+		</Unit>
 		<Unit filename="C:/Users/Asus/CLionProjects/ESI_PI_19698 - REPO/pi_repository/main.c">
 			<Option target="pi_repository"/>
 		</Unit>

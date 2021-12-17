@@ -128,6 +128,30 @@ pi_repository/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\pi_repository.dir\build.make CMakeFiles/pi_repository.dir/build
 .PHONY : pi_repository/fast
 
+funcoes.obj: funcoes.c.obj
+.PHONY : funcoes.obj
+
+# target to build an object file
+funcoes.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pi_repository.dir\build.make CMakeFiles/pi_repository.dir/funcoes.c.obj
+.PHONY : funcoes.c.obj
+
+funcoes.i: funcoes.c.i
+.PHONY : funcoes.i
+
+# target to preprocess a source file
+funcoes.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pi_repository.dir\build.make CMakeFiles/pi_repository.dir/funcoes.c.i
+.PHONY : funcoes.c.i
+
+funcoes.s: funcoes.c.s
+.PHONY : funcoes.s
+
+# target to generate assembly for a file
+funcoes.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pi_repository.dir\build.make CMakeFiles/pi_repository.dir/funcoes.c.s
+.PHONY : funcoes.c.s
+
 main.obj: main.c.obj
 .PHONY : main.obj
 
@@ -161,6 +185,9 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... pi_repository
+	@echo ... funcoes.obj
+	@echo ... funcoes.i
+	@echo ... funcoes.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
