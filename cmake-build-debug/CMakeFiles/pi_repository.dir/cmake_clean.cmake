@@ -1,6 +1,5 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/pi_repository.dir/funcoes.c.obj"
-  "CMakeFiles/pi_repository.dir/main.c.obj"
+  "CMakeFiles/pi_repository.dir/testes.c.obj"
   "libpi_repository.dll.a"
   "pi_repository.exe"
   "pi_repository.exe.manifest"

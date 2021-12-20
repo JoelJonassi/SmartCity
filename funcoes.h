@@ -1,7 +1,7 @@
 /**
  * @file funcoes.c
  * @author Joel Jonassi
- * @brief Smart City - Biblioteca
+ * @brief Smart City - Assinatura das funções
  * @version 0.1
  * @date 2021-12-17
  * @copyright Copyright (c) 2021
@@ -29,17 +29,19 @@ typedef struct _meio_eletrico
     int autonomia;
 } MeioEletrico;
 
-/**
- * Guardar dados dos Meios Elétricos
- * @param nomeFicheiro
- * @param v
- */
+
+int ler_meio_Transporte(const char *nomeFicheiro, MeioEletrico *v);
+int ler_pedidos(const char *nomeFicheiro, Pedido v[]);
 int guardar_meio_Transporte(const char *nomeFicheiro, MeioEletrico *v);
 int guardar_pedidos(const char *nomeFicheiro, Pedido v[]);
 void viewFileFirst(MeioEletrico *array,int n);
 void viewFileSecond(Pedido *array,int n);
-
-
+int existePedido(MeioEletrico transporte[], Pedido pedido[], int nif, int cod, int aut);
+int existeTransporte(MeioEletrico transporte[], int cod, int aut);
+int inserirMeioElectrico(MeioEletrico transporte[], int posi, int codigo, char tipo[4], char custo[5], int autonomia);
+int custUtiliz(MeioEletrico transporte[], Pedido pedido[], int nr_ordem, int n);
+int inserirPedidoUtiliz(Pedido pedido[],MeioEletrico transporte[], int pos,int nr_ordem, int nif, char codigo[4], int tempo, int distancia);
+int menu();
 
 /*
 void apresentar_concorrentes(Piloto *lista);

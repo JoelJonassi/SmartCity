@@ -8,8 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "C:/Users/Asus/CLionProjects/ESI_PI_19698 - REPO/pi_repository/funcoes.c" "C:/Users/Asus/CLionProjects/ESI_PI_19698 - REPO/pi_repository/cmake-build-debug/CMakeFiles/pi_repository.dir/funcoes.c.obj"
-  "C:/Users/Asus/CLionProjects/ESI_PI_19698 - REPO/pi_repository/main.c" "C:/Users/Asus/CLionProjects/ESI_PI_19698 - REPO/pi_repository/cmake-build-debug/CMakeFiles/pi_repository.dir/main.c.obj"
+  "C:/Users/Asus/CLionProjects/ESI_PI_19698 - REPO/pi_repository/testes.c" "C:/Users/Asus/CLionProjects/ESI_PI_19698 - REPO/pi_repository/cmake-build-debug/CMakeFiles/pi_repository.dir/testes.c.obj"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 

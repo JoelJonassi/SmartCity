@@ -3,4 +3,4 @@ project(pi_repository C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(pi_repository main.c funcoes.c)
+add_executable(pi_repository testes.c)
