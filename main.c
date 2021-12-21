@@ -21,8 +21,11 @@ int main()
     Pedido  array[10];
     int tot = ler_meio_Transporte("C:\\Users\\Asus\\CLionProjects\\ESI_PI_19698 - REPO\\pi_repository\\2-TipoTransporte.txt", v);
     int tot2 = ler_pedidos("C:\\Users\\Asus\\CLionProjects\\ESI_PI_19698 - REPO\\pi_repository\\1-Pedidos.txt", array);
-    //viewFileFirst(v, tot);
+    viewFileFirst(v, tot);
     viewFileSecond(array,tot2);
+    float a = custUtiliz(v,array, 1, 5);
+    printf("Result -> %f", a);
+
 
 }
 

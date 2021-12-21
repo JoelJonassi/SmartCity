@@ -38,6 +38,20 @@ int ler_pedidos(const char *nomeFicheiro, Pedido v[])
     fclose(af);
     return  tot;
 }
+/**
+ * Para Calculo
+ * Converter a virgula num ponto
+ * @param string
+ * @param caraterAntigo
+ * @param caraterNovo
+ */
+void mudarCarater(char *custo, char caraterAntigo, char caraterNovo)
+{
+    int slen = strlen(custo);
+    for(int i = 0; i < slen; i++)
+        if(custo[i] == caraterAntigo)custo[i] = caraterNovo;
+}
+
 
  /**
   * Alinea - 2
@@ -58,6 +72,8 @@ int ler_meio_Transporte(const char *nomeFicheiro, MeioEletrico v[])
         int i = 0;
         while (fscanf(af, "%s %s %s %d\n", v[i].codigo, v[i].tipo, v[i].custo, &v[i].autonomia) != EOF)
         {
+            mudarCarater(v[i].custo,',','.'); // Atera a virgula para ponto - Falta criar uma função para reverter o processo
+
             i++;
             tot = i;
         }
@@ -66,20 +82,6 @@ int ler_meio_Transporte(const char *nomeFicheiro, MeioEletrico v[])
     return  tot;
 }
 
-/**
- * Para Calculo
- * Converter a virgula num ponto
- * @param string
- * @param caraterAntigo
- * @param caraterNovo
- */
-void mudarCarater(char *custo, char caraterAntigo, char caraterNovo)
-{
-    int slen = strlen(custo);
-    for(int i = 0; i < slen; i++)
-        if(custo[i] == caraterAntigo)string[i] = caraterNovo;
-
-}
 
 /**
  * Para Calculo
@@ -98,8 +100,8 @@ int stringToFloat(char string[]){
  * @param string
  * @param n_digit
  */
-void floatToString(char string[], int n_digit, buffer){
-    gcvt(string, 30, buffer);
+void floatToString(double number, int n_digit, char* buffer){
+    gcvt(number, 30, buffer);
 }
 
 /**
@@ -107,12 +109,12 @@ void floatToString(char string[], int n_digit, buffer){
  * @param pedido
  * @param quantidadeAtletas
  */
-void guardar_pedidos(Pedido pedido[], int quantidadeAtletas)
+void guardar_pedidos(Pedido pedido[], int n)
 {
     int i;
     FILE* fp;
     fp = fopen("2-TipoTransporte.txt","at");   // "wt" write text  "rt" read text  "at" append
-    for(i = 0;i < quantidadeAtletas; i++)
+    for(i = n;i < n+n; i++)
     {fprintf(fp, "%d;", pedido[i].codigo);
         fprintf(fp, "%.2f;", pedido[i].distancia);
         fprintf(fp, "%.2f;", pedido[i].nr_ordem);
@@ -177,7 +179,7 @@ void viewFileSecond(Pedido *v, int n)
  * @param aut
  * @return
  */
-int existeTransporte(MeioEletrico transporte[], int cod, int aut)
+int existeTransporte(MeioEletrico transporte[], char cod[4], int aut)
 {
     int i=0;
     while (i != 1)
@@ -199,7 +201,7 @@ int existeTransporte(MeioEletrico transporte[], int cod, int aut)
  * @param aut
  * @return
  */
-int existePedido(MeioEletrico transporte[], Pedido pedido[], int nif, int cod, int aut)
+int existePedido(MeioEletrico transporte[], Pedido pedido[], int nif, char cod[4], int aut)
 {
     int i=0;
     while (i != 1) {
@@ -224,7 +226,7 @@ int existePedido(MeioEletrico transporte[], Pedido pedido[], int nif, int cod, i
  * @param pes
  * @return
  */
-int inserirMeioElectrico(MeioEletrico transporte[], int posi, int codigo, char tipo[4], char custo[5], int autonomia)
+int inserirMeioElectrico(MeioEletrico transporte[], int posi, char codigo[4], char tipo[4], char custo[5], int autonomia)
 {
     if (existeTransporte(transporte,codigo,autonomia)==-1)
     {
@@ -274,15 +276,20 @@ int inserirPedidoUtiliz(Pedido pedido[],MeioEletrico transporte[], int pos,int n
  * @return
  */
 int custUtiliz(MeioEletrico transporte[], Pedido pedido[], int nr_ordem, int n){
-    int custo = 0;
+   float custo = 0;
+   float aux = 0;
     for(int i = 0; i <= n; i++)
     {
         if ((pedido[i].nr_ordem == nr_ordem))
         {
-            custo = pedido[i].distancia * transporte[i].custo; //Converter o char custo em float
+            mudarCarater(transporte[i].custo,',','.');
+            custo = stringToFloat(transporte[i].custo);
+            aux = (float) pedido[i].distancia * custo; //Converter o char custo em float
+            return aux;
         }
     }
-    return custo;
+    return -1;
+
 }
 
 
@@ -295,13 +302,13 @@ int menu()
     int opcao;
     do { printf("M E N U\n");
         printf("1 - Inserir Meio de Mobilidae\n");
-        printf("2 - Consultar Atleta\n");
+        printf("2 - Consultar Meio De Mobilidade\n");
         printf("3 - Listar Mobilidade\n"); //
         printf("4 - Listar Pedidos\n");
-        printf("5 - Remover Atleta\n");
-        printf("6 - Atletas mais alto\n");
-        printf("7 - Ordenar pelo código\n");
-        printf("8 - Ordenar pelo nome\n");
+        printf("5 - Remover Pedidos\n");
+        printf("6 - Guardar\n");
+        printf("7 - Ordenar pelo Ordenar crescente\n");
+        printf("8 - Ordenar pelo Ordenar decrescente\n");
         printf("9 - Guardar em ficheiro\n");
         printf("10 - Ler\n");
         printf("0 - Sair\n");

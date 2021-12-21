@@ -32,13 +32,13 @@ typedef struct _meio_eletrico
 
 int ler_meio_Transporte(const char *nomeFicheiro, MeioEletrico *v);
 int ler_pedidos(const char *nomeFicheiro, Pedido v[]);
-int guardar_meio_Transporte(const char *nomeFicheiro, MeioEletrico *v);
-int guardar_pedidos(const char *nomeFicheiro, Pedido v[]);
+void guardar_meio_Transporte(MeioEletrico transporte[], int n);
+void guardar_pedidos(Pedido pedido[], int n);
 void viewFileFirst(MeioEletrico *array,int n);
 void viewFileSecond(Pedido *array,int n);
-int existePedido(MeioEletrico transporte[], Pedido pedido[], int nif, int cod, int aut);
-int existeTransporte(MeioEletrico transporte[], int cod, int aut);
-int inserirMeioElectrico(MeioEletrico transporte[], int posi, int codigo, char tipo[4], char custo[5], int autonomia);
+int existePedido(MeioEletrico transporte[], Pedido pedido[], int nif, char *cod, int aut);
+int existeTransporte(MeioEletrico transporte[], char *cod, int aut);
+int inserirMeioElectrico(MeioEletrico transporte[], int posi, char *codigo, char tipo[4], char custo[5], int autonomia);
 int custUtiliz(MeioEletrico transporte[], Pedido pedido[], int nr_ordem, int n);
 int inserirPedidoUtiliz(Pedido pedido[],MeioEletrico transporte[], int pos,int nr_ordem, int nif, char codigo[4], int tempo, int distancia);
 int menu();

@@ -128,29 +128,53 @@ pi_repository/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\pi_repository.dir\build.make CMakeFiles/pi_repository.dir/build
 .PHONY : pi_repository/fast
 
-testes.obj: testes.c.obj
-.PHONY : testes.obj
+funcoes.obj: funcoes.c.obj
+.PHONY : funcoes.obj
 
 # target to build an object file
-testes.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\pi_repository.dir\build.make CMakeFiles/pi_repository.dir/testes.c.obj
-.PHONY : testes.c.obj
+funcoes.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pi_repository.dir\build.make CMakeFiles/pi_repository.dir/funcoes.c.obj
+.PHONY : funcoes.c.obj
 
-testes.i: testes.c.i
-.PHONY : testes.i
+funcoes.i: funcoes.c.i
+.PHONY : funcoes.i
 
 # target to preprocess a source file
-testes.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\pi_repository.dir\build.make CMakeFiles/pi_repository.dir/testes.c.i
-.PHONY : testes.c.i
+funcoes.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pi_repository.dir\build.make CMakeFiles/pi_repository.dir/funcoes.c.i
+.PHONY : funcoes.c.i
 
-testes.s: testes.c.s
-.PHONY : testes.s
+funcoes.s: funcoes.c.s
+.PHONY : funcoes.s
 
 # target to generate assembly for a file
-testes.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\pi_repository.dir\build.make CMakeFiles/pi_repository.dir/testes.c.s
-.PHONY : testes.c.s
+funcoes.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pi_repository.dir\build.make CMakeFiles/pi_repository.dir/funcoes.c.s
+.PHONY : funcoes.c.s
+
+main.obj: main.c.obj
+.PHONY : main.obj
+
+# target to build an object file
+main.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pi_repository.dir\build.make CMakeFiles/pi_repository.dir/main.c.obj
+.PHONY : main.c.obj
+
+main.i: main.c.i
+.PHONY : main.i
+
+# target to preprocess a source file
+main.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pi_repository.dir\build.make CMakeFiles/pi_repository.dir/main.c.i
+.PHONY : main.c.i
+
+main.s: main.c.s
+.PHONY : main.s
+
+# target to generate assembly for a file
+main.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pi_repository.dir\build.make CMakeFiles/pi_repository.dir/main.c.s
+.PHONY : main.c.s
 
 # Help Target
 help:
@@ -161,9 +185,12 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... pi_repository
-	@echo ... testes.obj
-	@echo ... testes.i
-	@echo ... testes.s
+	@echo ... funcoes.obj
+	@echo ... funcoes.i
+	@echo ... funcoes.s
+	@echo ... main.obj
+	@echo ... main.i
+	@echo ... main.s
 .PHONY : help
 
 

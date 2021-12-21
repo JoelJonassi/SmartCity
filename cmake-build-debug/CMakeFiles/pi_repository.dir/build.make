@@ -65,32 +65,47 @@ include CMakeFiles/pi_repository.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/pi_repository.dir/flags.make
 
-CMakeFiles/pi_repository.dir/testes.c.obj: CMakeFiles/pi_repository.dir/flags.make
-CMakeFiles/pi_repository.dir/testes.c.obj: ../testes.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\Asus\CLionProjects\ESI_PI_19698 - REPO\pi_repository\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/pi_repository.dir/testes.c.obj"
-	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\pi_repository.dir\testes.c.obj -c "C:\Users\Asus\CLionProjects\ESI_PI_19698 - REPO\pi_repository\testes.c"
+CMakeFiles/pi_repository.dir/main.c.obj: CMakeFiles/pi_repository.dir/flags.make
+CMakeFiles/pi_repository.dir/main.c.obj: ../main.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\Asus\CLionProjects\ESI_PI_19698 - REPO\pi_repository\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/pi_repository.dir/main.c.obj"
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\pi_repository.dir\main.c.obj -c "C:\Users\Asus\CLionProjects\ESI_PI_19698 - REPO\pi_repository\main.c"
 
-CMakeFiles/pi_repository.dir/testes.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/pi_repository.dir/testes.c.i"
-	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "C:\Users\Asus\CLionProjects\ESI_PI_19698 - REPO\pi_repository\testes.c" > CMakeFiles\pi_repository.dir\testes.c.i
+CMakeFiles/pi_repository.dir/main.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/pi_repository.dir/main.c.i"
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "C:\Users\Asus\CLionProjects\ESI_PI_19698 - REPO\pi_repository\main.c" > CMakeFiles\pi_repository.dir\main.c.i
 
-CMakeFiles/pi_repository.dir/testes.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/pi_repository.dir/testes.c.s"
-	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "C:\Users\Asus\CLionProjects\ESI_PI_19698 - REPO\pi_repository\testes.c" -o CMakeFiles\pi_repository.dir\testes.c.s
+CMakeFiles/pi_repository.dir/main.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/pi_repository.dir/main.c.s"
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "C:\Users\Asus\CLionProjects\ESI_PI_19698 - REPO\pi_repository\main.c" -o CMakeFiles\pi_repository.dir\main.c.s
+
+CMakeFiles/pi_repository.dir/funcoes.c.obj: CMakeFiles/pi_repository.dir/flags.make
+CMakeFiles/pi_repository.dir/funcoes.c.obj: ../funcoes.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\Asus\CLionProjects\ESI_PI_19698 - REPO\pi_repository\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/pi_repository.dir/funcoes.c.obj"
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\pi_repository.dir\funcoes.c.obj -c "C:\Users\Asus\CLionProjects\ESI_PI_19698 - REPO\pi_repository\funcoes.c"
+
+CMakeFiles/pi_repository.dir/funcoes.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/pi_repository.dir/funcoes.c.i"
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "C:\Users\Asus\CLionProjects\ESI_PI_19698 - REPO\pi_repository\funcoes.c" > CMakeFiles\pi_repository.dir\funcoes.c.i
+
+CMakeFiles/pi_repository.dir/funcoes.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/pi_repository.dir/funcoes.c.s"
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "C:\Users\Asus\CLionProjects\ESI_PI_19698 - REPO\pi_repository\funcoes.c" -o CMakeFiles\pi_repository.dir\funcoes.c.s
 
 # Object files for target pi_repository
 pi_repository_OBJECTS = \
-"CMakeFiles/pi_repository.dir/testes.c.obj"
+"CMakeFiles/pi_repository.dir/main.c.obj" \
+"CMakeFiles/pi_repository.dir/funcoes.c.obj"
 
 # External object files for target pi_repository
 pi_repository_EXTERNAL_OBJECTS =
 
-pi_repository.exe: CMakeFiles/pi_repository.dir/testes.c.obj
+pi_repository.exe: CMakeFiles/pi_repository.dir/main.c.obj
+pi_repository.exe: CMakeFiles/pi_repository.dir/funcoes.c.obj
 pi_repository.exe: CMakeFiles/pi_repository.dir/build.make
 pi_repository.exe: CMakeFiles/pi_repository.dir/linklibs.rsp
 pi_repository.exe: CMakeFiles/pi_repository.dir/objects1.rsp
 pi_repository.exe: CMakeFiles/pi_repository.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="C:\Users\Asus\CLionProjects\ESI_PI_19698 - REPO\pi_repository\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Linking C executable pi_repository.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="C:\Users\Asus\CLionProjects\ESI_PI_19698 - REPO\pi_repository\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Linking C executable pi_repository.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\pi_repository.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
