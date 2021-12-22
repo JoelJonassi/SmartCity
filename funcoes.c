@@ -31,8 +31,13 @@ int ler_pedidos(const char *nomeFicheiro, Pedido v[])
         int i = 0;
         while (fscanf(af, " %d %d %s %d %d\n", &v[i].nr_ordem, &v[i].nif, v[i].codigo, &v[i].tempo, &v[i].distancia) != EOF)
         {
-            i++;
-            tot = i;
+            if(v[i].nr_ordem != 0)
+            {
+                i++;
+                tot = i;
+            }
+
+
         }
     }
     fclose(af);
@@ -89,8 +94,8 @@ int ler_meio_Transporte(const char *nomeFicheiro, MeioEletrico v[])
  * @param string
  * @return
  */
-int stringToFloat(char string[]){
-    double custo = atof(string);
+float stringToFloat(char string[]){
+    float custo = atof(string);
     return custo;
 }
 
@@ -215,7 +220,7 @@ int existePedido(MeioEletrico transporte[], Pedido pedido[], int nif, char cod[4
 }
 
 /**Alinea 3
- * Função para inserção de um novo atleta no array clube
+ * Função para inserção de um novo transporte no array transporte
  * devolvendo como resultado 1 em caso de sucesso e 0 em caso de insucesso
  *
  * @param clube
@@ -240,8 +245,30 @@ int inserirMeioElectrico(MeioEletrico transporte[], int posi, char codigo[4], ch
         return(0);
 }
 
+/**
+ * Alinea 4 - Por analiar
+ * Remoção de um meio de mobilidade elétrica a partir do seu código
+ * @param pedido
+ * @param nr_ordem
+ * @param n
+ * @return
+ */
+int removerTransporte(MeioEletrico transporte[], char cod[], int *n){
+    int i, j;
+    for( i = 0; i < n; i++){
+        if (transporte[i].codigo == cod){
+            for( j = i; j < (n-1); j++){
+                transporte[j] = transporte[j++];
+            }
+            n--;
+            return 1;
+        }
+        return -1;
+    }
+}
+
 /**Alinea 3
- * Função para inserção de um novo atleta no array clube
+ * Função para inserção de um pedido de utilização de um meio electrico no array pedido
  * devolvendo como resultado 1 em caso de sucesso e 0 em caso de insucesso
  *
  * @param clube
@@ -267,7 +294,31 @@ int inserirPedidoUtiliz(Pedido pedido[],MeioEletrico transporte[], int pos,int n
         return(0);
 }
 
+
 /**
+ * Alinea 6
+ * Remoção de um pedido de utilização a partir do seu código;
+ * @param pedido
+ * @param nr_ordem
+ * @param n
+ * @return
+ */
+int removerPedido(Pedido pedido[], int nr_ordem, int *n){
+    int i, j;
+    for( i = 0; i < n; i++){
+        if (pedido[i].nr_ordem == nr_ordem){
+            for( j = i; j < (n-1); j++){
+                pedido[j] = pedido[j++];
+            }
+            n--;
+            return 1;
+        }
+        return -1;
+    }
+}
+
+/**
+ * Alinea 9
  * Custo de utllização Associado ao transporte
  * @param transporte
  * @param pedido
@@ -275,7 +326,7 @@ int inserirPedidoUtiliz(Pedido pedido[],MeioEletrico transporte[], int pos,int n
  * @param n
  * @return
  */
-int custUtiliz(MeioEletrico transporte[], Pedido pedido[], int nr_ordem, int n){
+float custUtiliz(MeioEletrico transporte[], Pedido pedido[], int nr_ordem, int n){
    float custo = 0;
    float aux = 0;
     for(int i = 0; i <= n; i++)

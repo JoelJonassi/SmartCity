@@ -6,9 +6,7 @@
 
 #IncludeRegexTransform: 
 
-C:/Users/Asus/CLionProjects/ESI_PI_19698 - REPO/pi_repository/funcoes.h
-
-C:/Users/Asus/CLionProjects/ESI_PI_19698 - REPO/pi_repository/main.c
+C:/Users/Asus/CLionProjects/ESI_PI_19698 - REPO/pi_repository/funcoes.c
 stdio.h
 -
 stdlib.h
@@ -17,6 +15,8 @@ string.h
 -
 funcoes.h
 C:/Users/Asus/CLionProjects/ESI_PI_19698 - REPO/pi_repository/funcoes.h
-locale.h
+assert.h
 -
+
+C:/Users/Asus/CLionProjects/ESI_PI_19698 - REPO/pi_repository/funcoes.h
 

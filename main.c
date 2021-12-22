@@ -18,13 +18,16 @@
 int main()
 {
     MeioEletrico v[10];
-    Pedido  array[10];
+    Pedido  pedido[10];
     int tot = ler_meio_Transporte("C:\\Users\\Asus\\CLionProjects\\ESI_PI_19698 - REPO\\pi_repository\\2-TipoTransporte.txt", v);
-    int tot2 = ler_pedidos("C:\\Users\\Asus\\CLionProjects\\ESI_PI_19698 - REPO\\pi_repository\\1-Pedidos.txt", array);
+    int tot2 = ler_pedidos("C:\\Users\\Asus\\CLionProjects\\ESI_PI_19698 - REPO\\pi_repository\\1-Pedidos.txt", pedido);
     viewFileFirst(v, tot);
-    viewFileSecond(array,tot2);
-    float a = custUtiliz(v,array, 1, 5);
-    printf("Result -> %f", a);
+    //viewFileSecond(pedido,tot2);
+    float a;
+    a = custUtiliz(v ,pedido, 4, 7);
+    int  b = removerPedido(pedido, 1, tot2);
+    printf("Sucesso -> %.3f", a);
+    //viewFileSecond(pedido,tot2);
 
 
 }

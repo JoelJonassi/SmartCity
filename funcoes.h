@@ -39,8 +39,9 @@ void viewFileSecond(Pedido *array,int n);
 int existePedido(MeioEletrico transporte[], Pedido pedido[], int nif, char *cod, int aut);
 int existeTransporte(MeioEletrico transporte[], char *cod, int aut);
 int inserirMeioElectrico(MeioEletrico transporte[], int posi, char *codigo, char tipo[4], char custo[5], int autonomia);
-int custUtiliz(MeioEletrico transporte[], Pedido pedido[], int nr_ordem, int n);
+float custUtiliz(MeioEletrico transporte[], Pedido pedido[], int nr_ordem, int n);
 int inserirPedidoUtiliz(Pedido pedido[],MeioEletrico transporte[], int pos,int nr_ordem, int nif, char codigo[4], int tempo, int distancia);
+int removerPedido(Pedido pedido[], int nr_ordem, int *n);
 int menu();
 
 /*

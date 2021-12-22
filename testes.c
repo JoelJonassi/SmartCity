@@ -29,13 +29,19 @@ char* strseta(char s[], char ch) {
 
         return s;
 }
+float stringToFloat(char string[]) {
+    float custo = atof(string);
+    return custo;
+}
 
 void main()
 {
+    char x[20] = "1.2";
+    double b = stringToFloat("1.2");
     float a = 1234.6;
-    char b[9];
+    char c[9];
     char buffer[40];
     gcvt(a, 30, buffer);
     //(a);
-    printf("%s", buffer);
+    printf("%f", b);
 }
