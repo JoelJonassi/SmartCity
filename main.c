@@ -8,26 +8,62 @@
  * @copyright Copyright (c) 2021
  */
 
-
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include "funcoes.h"
-#include <locale.h>
+
 
 int main()
 {
-    MeioEletrico v[10];
+    //Variáveis
+    MeioEletrico transporte[10];
     Pedido  pedido[10];
-    int tot = ler_meio_Transporte("C:\\Users\\Asus\\CLionProjects\\ESI_PI_19698 - REPO\\pi_repository\\2-TipoTransporte.txt", v);
-    int tot2 = ler_pedidos("C:\\Users\\Asus\\CLionProjects\\ESI_PI_19698 - REPO\\pi_repository\\1-Pedidos.txt", pedido);
-    viewFileFirst(v, tot);
-    //viewFileSecond(pedido,tot2);
-    float a;
-    a = custUtiliz(v ,pedido, 4, 7);
-    int  b = removerPedido(pedido, 1, tot2);
-    printf("Sucesso -> %.3f", a);
-    //viewFileSecond(pedido,tot2);
+    int totTransporte, totPedido;
+    float a = 0;
+    int b;
+
+    //Leitura de ficheiros texto
+    totTransporte = ler_meio_Transporte("C:\\Users\\Asus\\CLionProjects\\ESI_PI_19698 - REPO\\pi_repository\\2-TipoTransporte.txt", transporte);
+    totPedido = ler_pedidos("C:\\Users\\Asus\\CLionProjects\\ESI_PI_19698 - REPO\\pi_repository\\1-Pedidos.txt", pedido);
+
+    guardar_pedidos(pedido, "C:\\Users\\Asus\\CLionProjects\\ESI_PI_19698 - REPO\\pi_repository\\1-Pedidosv2.txt", &totPedido);
+    guardar_meio_Transporte(transporte,"C:\\Users\\Asus\\CLionProjects\\ESI_PI_19698 - REPO\\pi_repository\\2-TipoTransportev2.txt", &totTransporte);
+
+    //Listar transportes
+    puts("---------------TRANSPORTES--------------");
+    viewFileFirst(transporte, &totTransporte);
+    //Listar pedidos
+    puts("-----------------PEDIDOS-----------------");
+    viewFileSecond(pedido,&totPedido);
+
+    //Remover pedidos
+    removerPedido(pedido, 6,&totPedido);
+    removerPedido(pedido, 7,&totPedido);
+    removerPedido(pedido, 1,&totPedido);
+
+    //Remover transportes
+    removerTransporte(transporte,"M_1",&totTransporte);
+    removerTransporte(transporte,"M_4",&totTransporte);
+
+    puts("---------------PEDIDOS NAO REMOVIDOS--------------");
+    viewFileSecond(pedido,&totPedido);
+    puts("---------------TRANSPORTES NAO REMOVIDOS--------------");
+    viewFileFirst(transporte, &totTransporte);
+
+    //Atualizar ficheiros os removidos, os não removidos, os novos inseridos ou seja guardar em ficheiros
+
+
+    //Cálculo do custo associado a um pedido de utilização a partir da indicação do seu número de ordem
+    //Criar um ciclo for para facilitar a listagem do custo associado ao pedido
+    puts("------------CALCULO ASSOCIADO A UM PEDIDO DE UTILIZACAO--------------");
+    int user;
+    char tipo[15];
+    a = custUtiliz(transporte ,pedido, 3, &user, tipo, &totTransporte);
+    printf("custo: %f -> utilizador: %d -> tipo: %s", a, user, tipo);
+
+    puts("--------------------Guardar informação em ficheiros------------------------");
+    guardar_pedidos(pedido, "C:\\Users\\Asus\\CLionProjects\\ESI_PI_19698 - REPO\\pi_repository\\1-Pedidosv2.txt", &totPedido);
+    guardar_meio_Transporte(transporte,"C:\\Users\\Asus\\CLionProjects\\ESI_PI_19698 - REPO\\pi_repository\\2-TipoTransportev2.txt", &totTransporte);
 
 
 }

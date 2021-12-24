@@ -1,4 +1,5 @@
 /**
+ * Falta a alinea 10 e 11
  * @file funcoes.c
  * @author Joel Jonassi
  * @brief Smart City - implementation of functions
@@ -11,9 +12,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include "funcoes.h"
-#include <assert.h>
 
-/**Alinea - 1
+/**Alinea 1
  * Lê os ficheiros os dados dos pedidos
  * @param nomeFicheiro = 1.Pedidos.txt
  * @param v
@@ -43,14 +43,14 @@ int ler_pedidos(const char *nomeFicheiro, Pedido v[])
     fclose(af);
     return  tot;
 }
-/**
+/**Auxiliar da alinea 9
  * Para Calculo
  * Converter a virgula num ponto
  * @param string
  * @param caraterAntigo
  * @param caraterNovo
  */
-void mudarCarater(char *custo, char caraterAntigo, char caraterNovo)
+void mudarCarater(char custo[], char caraterAntigo, char caraterNovo)
 {
     int slen = strlen(custo);
     for(int i = 0; i < slen; i++)
@@ -59,7 +59,7 @@ void mudarCarater(char *custo, char caraterAntigo, char caraterNovo)
 
 
  /**
-  * Alinea - 2
+  * Alinea 2
   * Lê os ficheiros e guarda os dados dos meios de transporte
   * @param nomeFicheiro = 2- TipoTransporte
   * @param v
@@ -89,6 +89,7 @@ int ler_meio_Transporte(const char *nomeFicheiro, MeioEletrico v[])
 
 
 /**
+ * Auxiliar da alinea 9
  * Para Calculo
  * Converter o custo num float
  * @param string
@@ -99,85 +100,93 @@ float stringToFloat(char string[]){
     return custo;
 }
 
-/**
+/**Auxiliar da alinea 9
  * Para Calculo
  * Convert float em string de modo a guardar no ficheiro
  * @param string
  * @param n_digit
  */
-void floatToString(double number, int n_digit, char* buffer){
+void floatToString(float number, char* buffer){
     gcvt(number, 30, buffer);
 }
 
 /**
+ * Armazenamento dos pedidos de utilização em ficheiro
  *Alinea 12
  * @param pedido
  * @param quantidadeAtletas
  */
-void guardar_pedidos(Pedido pedido[], int n)
+void guardar_pedidos(Pedido v[], const char *nomeFicheiro, int *n)
 {
-    int i;
+    //%d %d %s %d %d
     FILE* fp;
-    fp = fopen("2-TipoTransporte.txt","at");   // "wt" write text  "rt" read text  "at" append
-    for(i = n;i < n+n; i++)
-    {fprintf(fp, "%d;", pedido[i].codigo);
-        fprintf(fp, "%.2f;", pedido[i].distancia);
-        fprintf(fp, "%.2f;", pedido[i].nr_ordem);
-        fprintf(fp, "%s\n", pedido[i].nif);
-        fprintf(fp, "%s\n", pedido[i].tempo);
+    fp = fopen(nomeFicheiro,"w");   // "wt" write text  "rt" read text  "at" append
+    if (fp == NULL)
+        perror("Error");
+    else {
+        for (int i = 0; i < *n; i++) {
+            fprintf(fp, "%d %d %s %d %d\n", v[i].nr_ordem, v[i].nif, v[i].codigo, v[i].tempo, v[i].distancia);
+            //        fprintf(fp, "%[^]", pedido[i].codigo);
+            //        fprintf(fp, "%d", pedido[i].distancia);
+            //        fprintf(fp, "%d", pedido[i].nr_ordem);
+            //        fprintf(fp, "%d", pedido[i].nif);
+            //        fprintf(fp, "%d\n", pedido[i].tempo);
+        }
     }
     fclose(fp);
 }
 
 /**Alinea 13
- *
+ *Armazenamento dos meios de mobilidade elétrica em ficheiro
  * @param c
  * @param quantidadeAtletas
  */
-void guardar_meio_Transporte(MeioEletrico transporte[], int quantidadeAtletas)
+void guardar_meio_Transporte(MeioEletrico v[],const char *nomeFicheiro, int *n)
 {
-    int i;
     FILE* fp;
-    fp = fopen("2-TipoTransporte.txt","at");   // "wt" write text  "rt" read text  "at" append
-    for(i = 0;i < quantidadeAtletas; i++)
-    {fprintf(fp, "%d;", transporte[i].codigo);
-        fprintf(fp, "%.2f;", transporte[i].tipo);
-        fprintf(fp, "%.2f;", transporte[i].custo);
-        fprintf(fp, "%s\n", transporte[i].autonomia);
+    fp = fopen(nomeFicheiro,"w");   // "wt" write text  "rt" read text  "at" append
+    for(int i = 0; i < *n; i++)
+    {
+        fprintf(fp, "%s %s %s %d\n", v[i].codigo, v[i].tipo, v[i].custo, &v[i].autonomia);
+        ///mudarCarater(transporte[i].custo,".",",");
+//        fprintf(fp, "%s", transporte[i].codigo);
+//        fprintf(fp, "%s", transporte[i].tipo);
+//        fprintf(fp, "%s", transporte[i].custo);
+//        fprintf(fp, "%d\n", transporte[i].autonomia);
     }
     fclose(fp);
 }
 
 /**
  * Alenea 7
- * Para Debug
+ * Listagem dos dados de todos os meios de mobilidade elétrica
  * Visualizar os dados dos meios eletricos
  * @param v
  * @param n
  */
-void viewFileFirst(MeioEletrico *v, int n){
-    for(int i = 0; i < n; i++){
+void viewFileFirst(MeioEletrico *v, int *n){
+    for(int i = 0; i < *n; i++){
         printf("%s %s %s %d\n", v[i].codigo,v[i].tipo,v[i].custo, v[i].autonomia);
     }
 }
 
 /**
  * Alinea 8
- * Para Debug
+ * Listagem de todos os pedidos de utilização
  * Visualizar os dados dos pedidos
  * @param v
  * @param n
  */
-void viewFileSecond(Pedido *v, int n)
+void viewFileSecond(Pedido *v, int *n)
 {
-    for(int i = 0; i < n; i++){
+    for(int i = 0; i < *n; i++){
         printf("%d %d %s %d %d\n", v[i].nr_ordem, v[i].nif, v[i].codigo, v[i].tempo, v[i].distancia);
     }
 }
 
 /**
- * // Determinar se existe um atleta com código 'cod' no array clube
-// Devolve o índice do registo com a informação do atleta se existir
+ * // Determinar se existe um transporte com código 'cod' no array transporte
+// Devolve o índice do registo com a informação do transporte se existir
 // Devolve -1 se não existir
  * @param transporte
  * @param cod
@@ -189,7 +198,7 @@ int existeTransporte(MeioEletrico transporte[], char cod[4], int aut)
     int i=0;
     while (i != 1)
     {
-        if (transporte[i].codigo == cod && transporte[i].autonomia == aut) {
+        if (transporte[i].codigo == cod && transporte[i].autonomia == aut) {//Analisar
             i++;
             return (i);
         }
@@ -198,10 +207,10 @@ int existeTransporte(MeioEletrico transporte[], char cod[4], int aut)
 }
 
 /**
- * // Determinar se existe um atleta com código 'cod' no array clube
-// Devolve o índice do registo com a informação do atleta se existir
-// Devolve -1 se não existir
+ *
  * @param transporte
+ * @param pedido
+ * @param nif
  * @param cod
  * @param aut
  * @return
@@ -219,18 +228,18 @@ int existePedido(MeioEletrico transporte[], Pedido pedido[], int nif, char cod[4
     }
 }
 
-/**Alinea 3
- * Função para inserção de um novo transporte no array transporte
- * devolvendo como resultado 1 em caso de sucesso e 0 em caso de insucesso
- *
- * @param clube
- * @param qt
- * @param cod
- * @param nm
- * @param alt
- * @param pes
- * @return
- */
+ /**
+  * Alinea 3
+  * Função para inserção de um novo transporte no array transporte
+  * devolvendo como resultado 1 em caso de sucesso e 0 em caso de insucesso
+  * @param transporte
+  * @param posi
+  * @param codigo
+  * @param tipo
+  * @param custo
+  * @param autonomia
+  * @return
+  */
 int inserirMeioElectrico(MeioEletrico transporte[], int posi, char codigo[4], char tipo[4], char custo[5], int autonomia)
 {
     if (existeTransporte(transporte,codigo,autonomia)==-1)
@@ -245,40 +254,47 @@ int inserirMeioElectrico(MeioEletrico transporte[], int posi, char codigo[4], ch
         return(0);
 }
 
-/**
- * Alinea 4 - Por analiar
- * Remoção de um meio de mobilidade elétrica a partir do seu código
- * @param pedido
- * @param nr_ordem
- * @param n
- * @return
- */
-int removerTransporte(MeioEletrico transporte[], char cod[], int *n){
+
+ /**
+  * Alinea 4 - Por analiar
+  * Remoção de um meio de mobilidade elétrica a partir do seu código
+  * @param transporte
+  * @param cod
+  * @param n
+  * @return
+  */
+int removerTransporte(MeioEletrico transporte[], char *cod, int *n){
     int i, j;
-    for( i = 0; i < n; i++){
-        if (transporte[i].codigo == cod){
-            for( j = i; j < (n-1); j++){
-                transporte[j] = transporte[j++];
+    for( i = 0; i < *n; i++){
+        if (strcmp(transporte[i].codigo, cod)==0){
+            for( j = i; j < *n-1; j++){
+                transporte[j] = transporte[j+1];
             }
-            n--;
+            *n-=1;
             return 1;
         }
-        return -1;
+
     }
+    return -1;
 }
 
-/**Alinea 3
- * Função para inserção de um pedido de utilização de um meio electrico no array pedido
- * devolvendo como resultado 1 em caso de sucesso e 0 em caso de insucesso
+/**
  *
- * @param clube
- * @param qt
- * @param cod
- * @param nm
- * @param alt
- * @param pes
- * @return
  */
+ /**
+  * Alinea 3
+  * Função para inserção de um pedido de utilização de um meio electrico no array pedido
+  * devolvendo como resultado 1 em caso de sucesso e 0 em caso de insucesso
+  * @param pedido
+  * @param transporte
+  * @param pos
+  * @param nr_ordem
+  * @param nif
+  * @param codigo
+  * @param tempo
+  * @param distancia
+  * @return
+  */
 int inserirPedidoUtiliz(Pedido pedido[],MeioEletrico transporte[], int pos,int nr_ordem, int nif, char codigo[4], int tempo, int distancia)
 {
     if (existePedido(transporte, pedido,nif, codigo, transporte[1].autonomia) == -1)
@@ -305,37 +321,38 @@ int inserirPedidoUtiliz(Pedido pedido[],MeioEletrico transporte[], int pos,int n
  */
 int removerPedido(Pedido pedido[], int nr_ordem, int *n){
     int i, j;
-    for( i = 0; i < n; i++){
+    for(i = 0; i < *n; i++){
         if (pedido[i].nr_ordem == nr_ordem){
-            for( j = i; j < (n-1); j++){
-                pedido[j] = pedido[j++];
-            }
-            n--;
+            for( j = i; j < *n-1; j++)
+                pedido[j] = pedido[j+1];
+            *n-=1;
             return 1;
         }
-        return -1;
     }
+    return -1;
 }
 
 /**
  * Alinea 9
- * Custo de utllização Associado ao transporte
+ * Cálculo do custo associado a um pedido de utilização a partir da indicação do seu número de ordem
  * @param transporte
  * @param pedido
  * @param nr_ordem
  * @param n
  * @return
  */
-float custUtiliz(MeioEletrico transporte[], Pedido pedido[], int nr_ordem, int n){
+float custUtiliz(MeioEletrico transporte[], Pedido pedido[], int nr_ordem, int *utilizador, char tipo[], int *n){
    float custo = 0;
    float aux = 0;
-    for(int i = 0; i <= n; i++)
+    for(int i = 0; i < *n; i++)
     {
         if ((pedido[i].nr_ordem == nr_ordem))
         {
             mudarCarater(transporte[i].custo,',','.');
             custo = stringToFloat(transporte[i].custo);
             aux = (float) pedido[i].distancia * custo; //Converter o char custo em float
+            *utilizador = pedido[i].nif;
+            strcpy(tipo,transporte[i].tipo);
             return aux;
         }
     }

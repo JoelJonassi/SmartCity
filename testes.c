@@ -33,15 +33,28 @@ float stringToFloat(char string[]) {
     float custo = atof(string);
     return custo;
 }
+void floatToString(double number, char* buffer){
+    gcvt(number, 30, buffer);
+}
 
 void main()
 {
-    char x[20] = "1.2";
-    double b = stringToFloat("1.2");
-    float a = 1234.6;
-    char c[9];
-    char buffer[40];
-    gcvt(a, 30, buffer);
-    //(a);
-    printf("%f", b);
+//    char x[20] = "1.2";
+//    double b = stringToFloat("1.2");
+//    float a = 1234.6;
+//    char c[9];
+//    char buffer[40];
+//    gcvt(a, 30, buffer);
+//    //(a);
+//    printf("%f", b);
+
+        FILE * fp;
+
+        fp = fopen ("file.txt", "w+");
+        fprintf(fp, "%s %s %s %d", "We", "are", "in", 2012);
+
+        fclose(fp);
+
+        return(0);
+
 }

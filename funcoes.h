@@ -10,7 +10,7 @@
 #ifndef PI_REPOSITORY_FUNCOES_H
 #define PI_REPOSITORY_FUNCOES_H
 
-typedef enum {Trotinete, Bicicleta, Carro} TIPO;
+
 typedef struct _pedido
 {
     int nr_ordem;
@@ -29,19 +29,28 @@ typedef struct _meio_eletrico
     int autonomia;
 } MeioEletrico;
 
+typedef struct _plano{
+    struct _meio_eletrico transporte;
+    struct _pedido pedido;
+    int tempInicial;
+    int tempFinal;
+}Plano;
+
 
 int ler_meio_Transporte(const char *nomeFicheiro, MeioEletrico *v);
 int ler_pedidos(const char *nomeFicheiro, Pedido v[]);
-void guardar_meio_Transporte(MeioEletrico transporte[], int n);
-void guardar_pedidos(Pedido pedido[], int n);
-void viewFileFirst(MeioEletrico *array,int n);
-void viewFileSecond(Pedido *array,int n);
+void guardar_meio_Transporte(MeioEletrico transporte[],const char *nomeFicheiro, int *n);
+void guardar_pedidos(Pedido pedido[], const char *nomeFicheiro, int *n);
+void viewFileFirst(MeioEletrico *array,int *n);
+void viewFileSecond(Pedido *array,int *n);
 int existePedido(MeioEletrico transporte[], Pedido pedido[], int nif, char *cod, int aut);
 int existeTransporte(MeioEletrico transporte[], char *cod, int aut);
 int inserirMeioElectrico(MeioEletrico transporte[], int posi, char *codigo, char tipo[4], char custo[5], int autonomia);
-float custUtiliz(MeioEletrico transporte[], Pedido pedido[], int nr_ordem, int n);
+float custUtiliz(MeioEletrico transporte[], Pedido pedido[], int nr_ordem, int *utilizador, char tipo[], int *n);
 int inserirPedidoUtiliz(Pedido pedido[],MeioEletrico transporte[], int pos,int nr_ordem, int nif, char codigo[4], int tempo, int distancia);
 int removerPedido(Pedido pedido[], int nr_ordem, int *n);
+int removerTransporte(MeioEletrico transporte[], char *cod, int *n);
+void mudarCarater(char custo[], char caraterAntigo, char caraterNovo);
 int menu();
 
 /*
