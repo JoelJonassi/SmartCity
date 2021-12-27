@@ -147,12 +147,36 @@ void guardar_meio_Transporte(MeioEletrico v[],const char *nomeFicheiro, int *n)
     fp = fopen(nomeFicheiro,"w");   // "wt" write text  "rt" read text  "at" append
     for(int i = 0; i < *n; i++)
     {
-        fprintf(fp, "%s %s %s %d\n", v[i].codigo, v[i].tipo, v[i].custo, &v[i].autonomia);
+        fprintf(fp, "%s %s %s %d\n", v[i].codigo, v[i].tipo, v[i].custo, v[i].autonomia);
         ///mudarCarater(transporte[i].custo,".",",");
 //        fprintf(fp, "%s", transporte[i].codigo);
 //        fprintf(fp, "%s", transporte[i].tipo);
 //        fprintf(fp, "%s", transporte[i].custo);
 //        fprintf(fp, "%d\n", transporte[i].autonomia);
+    }
+    fclose(fp);
+}
+
+/**Alinea
+ *Armazenamento atribuição dos meios de mobilidade elétrica aos repectivos utilizadores de acordo com os pedidos em ficheiro
+ * @param c
+ * @param quantidadeAtletas
+ */
+void guardar_atribuicao(MeioEletrico v[], Pedido p[], const char *nomeFicheiro, int *n)
+{
+    FILE* fp;
+    fp = fopen(nomeFicheiro,"w");   // "wt" write text  "rt" read text  "at" append
+    for(int i = 0; i < *n; i++)
+    {
+        if( strcmp(v[i].codigo, p[i].codigo) == 0)
+        {
+            fprintf(fp, "%s %s %s %d\n", p[i].nr_ordem, p[i].nif, v[i].codigo, v[i].tipo, v[i].custo, v[i].autonomia);
+            ///mudarCarater(transporte[i].custo,".",",");
+//          fprintf(fp, "%s", transporte[i].codigo);
+//          fprintf(fp, "%s", transporte[i].tipo);
+//          fprintf(fp, "%s", transporte[i].custo);
+//           fprintf(fp, "%d\n", transporte[i].autonomia);
+        }
     }
     fclose(fp);
 }
@@ -233,21 +257,22 @@ int existePedido(MeioEletrico transporte[], Pedido pedido[], int nif, char cod[4
   * Função para inserção de um novo transporte no array transporte
   * devolvendo como resultado 1 em caso de sucesso e 0 em caso de insucesso
   * @param transporte
-  * @param posi
+  * @param n
   * @param codigo
   * @param tipo
   * @param custo
   * @param autonomia
   * @return
   */
-int inserirMeioElectrico(MeioEletrico transporte[], int posi, char codigo[4], char tipo[4], char custo[5], int autonomia)
+int inserirMeioElectrico(MeioEletrico transporte[], char codigo[4], char tipo[4], char custo[5], int autonomia, int *n)
 {
     if (existeTransporte(transporte,codigo,autonomia)==-1)
     {
-        strcpy(transporte[posi].codigo,codigo);
-        strcpy(transporte[posi].tipo,tipo);
-        strcpy(transporte[posi].custo, custo);
-        transporte[posi].autonomia= autonomia;
+        strcpy(transporte[*n].codigo, codigo);
+        strcpy(transporte[*n].tipo, tipo);
+        strcpy(transporte[*n].custo, custo);
+        transporte[*n].autonomia = autonomia;
+        *n = *n + 1;
         return(1);
     }
     else
@@ -287,7 +312,7 @@ int removerTransporte(MeioEletrico transporte[], char *cod, int *n){
   * devolvendo como resultado 1 em caso de sucesso e 0 em caso de insucesso
   * @param pedido
   * @param transporte
-  * @param pos
+  * @param n
   * @param nr_ordem
   * @param nif
   * @param codigo
@@ -295,15 +320,17 @@ int removerTransporte(MeioEletrico transporte[], char *cod, int *n){
   * @param distancia
   * @return
   */
-int inserirPedidoUtiliz(Pedido pedido[],MeioEletrico transporte[], int pos,int nr_ordem, int nif, char codigo[4], int tempo, int distancia)
+int inserirPedidoUtiliz(Pedido pedido[], MeioEletrico transporte[], int nr_ordem, int nif, char codigo[4], int tempo, int distancia, int *n)
 {
+    int i = 1;
     if (existePedido(transporte, pedido,nif, codigo, transporte[1].autonomia) == -1)
     {
-        strcpy(pedido[pos].codigo, codigo);
-        pedido[pos].nr_ordem= nr_ordem;
-        pedido[pos].nif= nif;
-        pedido[pos].distancia= distancia;
-        pedido[pos].tempo= tempo;
+        strcpy(pedido[*n].codigo, codigo);
+        pedido[*n].nr_ordem= nr_ordem;
+        pedido[*n].nif= nif;
+        pedido[*n].distancia= distancia;
+        pedido[*n].tempo= tempo;
+        *n = *n + 1;
         return(1);
     }
     else
