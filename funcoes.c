@@ -13,6 +13,37 @@
 #include <string.h>
 #include "funcoes.h"
 
+
+/**Alinea - Resolver problema
+ * Lê os ficheiros os dados da atribuição
+ * @param nomeFicheiro = 1.Pedidos.txt
+ * @param plano
+ * @return
+ */
+int ler_atribuicao(const char *nomeFicheiro, Plano plano[])
+{
+    FILE *af;
+    int tot = 0;
+    af = fopen(nomeFicheiro, "r");
+    if (af == NULL)
+        perror("Error");
+    else
+    {
+        int i = 0;
+        while (fscanf(af, "%d %d %d %d %d %s\n", &plano[i].nr_ordem, &plano[i].nif, &plano[i].tempInicial,
+                      &plano[i].tempFinal, &plano[i].autonomia, plano[i].codigo) != EOF)
+        {
+            if(plano[i].nr_ordem != 0)
+            {
+                i++;
+                tot = i;
+            }
+        }
+    }
+    fclose(af);
+    return  tot;
+}
+
 /**Alinea 1
  * Lê os ficheiros os dados dos pedidos
  * @param nomeFicheiro = 1.Pedidos.txt
@@ -162,24 +193,88 @@ void guardar_meio_Transporte(MeioEletrico v[],const char *nomeFicheiro, int *n)
  * @param c
  * @param quantidadeAtletas
  */
-void guardar_atribuicao(MeioEletrico v[], Pedido p[], const char *nomeFicheiro, int *n)
+void guardar_atribuicao(Plano plano[], MeioEletrico transporte[], Pedido pedido[], const char *nomeFicheiro, int tInicio, int tFinal, int *n)
 {
     FILE* fp;
     fp = fopen(nomeFicheiro,"w");   // "wt" write text  "rt" read text  "at" append
-    for(int i = 0; i < *n; i++)
+    for(int j = 0; j < *n; j++)
     {
-        if( strcmp(v[i].codigo, p[i].codigo) == 0)
-        {
-            fprintf(fp, "%s %s %s %d\n", p[i].nr_ordem, p[i].nif, v[i].codigo, v[i].tipo, v[i].custo, v[i].autonomia);
-            ///mudarCarater(transporte[i].custo,".",",");
-//          fprintf(fp, "%s", transporte[i].codigo);
-//          fprintf(fp, "%s", transporte[i].tipo);
-//          fprintf(fp, "%s", transporte[i].custo);
-//           fprintf(fp, "%d\n", transporte[i].autonomia);
+        for(int i = 0; i < *n; i++) {
+            if (strcmp(transporte[i].codigo, pedido[j].codigo) == 0 && transporte[i].autonomia >= pedido[j].distancia)
+            {
+                plano[j].nif = pedido[j].nif;
+                plano[j].nr_ordem = pedido[j].nr_ordem;
+                plano[j].autonomia = transporte[i].autonomia;
+                strcpy(plano[j].codigo, pedido[j].codigo);
+                plano[j].tempInicial = tInicio;
+                plano[j].tempFinal = tFinal;
+                fprintf(fp, "%d %d %d %d %d %s\n", plano[j].nr_ordem, plano[j].nif, plano[j].tempInicial,
+                        plano[j].tempFinal, plano[j].autonomia, plano[j].codigo);
+            }
+            else
+                continue;
+
         }
+
     }
     fclose(fp);
 }
+
+int listarPlano(const char *nomeFicheiro, Plano plano[], char cod[5],int *n)
+{
+    // declarar as variaveis
+    &plano[i].nr_ordem, &plano[i].nif, &plano[i].tempInicial,
+            &plano[i].tempFinal, &plano[i].autonomia, plano[i].codigo)
+    FILE *af;
+    int tot = 0;
+    af = fopen(nomeFicheiro, "r");
+    if (af == NULL)
+        perror("Error");
+    else
+    {
+        int i = 0;
+        while (fscanf(af, "%d %d %d %d %d %s\n", &plano[i].nr_ordem, &plano[i].nif, &plano[i].tempInicial,
+                      &plano[i].tempFinal, &plano[i].autonomia, plano[i].codigo) != EOF)
+        {
+            if(plano[i].nr_ordem != 0 && strcmp(cod, plano) =  1)
+            {
+                // coloca no array oque deve ser mostrado
+                i++;
+                tot = i;
+            }
+        }
+    }
+    fclose(af);
+    return  tot;
+}
+
+/**
+ * Falta a alinea 10 e 11
+ * @file funcoes.c
+ * @author Joel Jonassi
+ * @brief Smart City - implementation of functions
+ * @version 0.1
+ * @date 2021-12-17
+ * @copyright Copyright (c) 2021
+ */
+
+/**
+ * Carregar o ficheiro e comfirmar os dados comparando o nif  e o transporte atribuido com outras estrututuras
+ * Se ja tiver sido atribuido procurar outro e atribuir
+ *
+ * @param p
+ * @param n
+ * @return
+ */
+/*int inserir_atribuicao(Plano p[], int *n){
+    for(int i = 0; i < *n; i++)
+    {
+        if( strcmp(p[i]., p[i].transporte.codigo) == 0)
+        {
+            fprintf(fp, "%d %d %d %d %d %s\n", p[i].pedido.nr_ordem, p[i].pedido.nif, p[i].tempInicial, p[i].tempFinal, p[i].transporte.autonomia, p[i].transporte.codigo);
+        }
+    }
+}*/
 
 /**
  * Alenea 7

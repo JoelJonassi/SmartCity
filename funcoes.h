@@ -30,17 +30,23 @@ typedef struct _meio_eletrico
 } MeioEletrico;
 
 typedef struct _plano{
-    struct _meio_eletrico transporte;
-    struct _pedido pedido;
+    char codigo[5];
+    int nr_ordem;
+    int nif;
+   // struct _meio_eletrico transporte;
+    //struct _pedido pedido;
     int tempInicial;
     int tempFinal;
+    int autonomia;
 }Plano;
 
 
 int ler_meio_Transporte(const char *nomeFicheiro, MeioEletrico *v);
 int ler_pedidos(const char *nomeFicheiro, Pedido v[]);
+int ler_atribuicao(const char *nomeFicheiro, Plano plano[]);
 void guardar_meio_Transporte(MeioEletrico transporte[],const char *nomeFicheiro, int *n);
 void guardar_pedidos(Pedido pedido[], const char *nomeFicheiro, int *n);
+void guardar_atribuicao(Plano plano[], MeioEletrico transporte[], Pedido pedido[], const char *nomeFicheiro, int tInicio, int tFinal, int *n);
 void viewFileFirst(MeioEletrico *array,int *n);
 void viewFileSecond(Pedido *array,int *n);
 int existePedido(MeioEletrico transporte[], Pedido pedido[], int nif, char *cod, int aut);
