@@ -1,3 +1,0 @@
-M_2 Trotinete 0.20 13
-M_3 Carro 0.80 320
-M_7 mota 0,44 66
