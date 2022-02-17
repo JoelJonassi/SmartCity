@@ -19,16 +19,17 @@ mobilidade pretendido (trotinetes, bicicleta, carro, etc), o tempo (minutos) de 
 distância (quilómetros) pretendida. O meio de mobilidade atribuído deverá ter autonomia suficiente para
 completar a distância definida pelo utilizador.
 Apresenta-se, a seguir, com cor azul, um exemplo de conteúdo de um ficheiro com sete pedidos:
-Número
-Ordem | NIF | Código | Tempo (min) | Distância (km)
------
-  1 | 12345678 | M_1 | 75 | 3
-  2 | 11223344 | M_2 | 100 | 2
-  3 | 10203040 | M_4 | 50 | 2
-  4 | 111222333| M_3 | 100 | 20
-  5 | 11112222 | M_1 | 30 | 4
-  6 | 22223333 | M_3 | 150 | 50
-  7 | 44448888 | M_3 | 50 | 100
+
+Número Ordem | NIF | Código | Tempo (min) | Distância (km)
+-----|------|-----|-----|----
+ 1 | 12345678 | M_1 | 75 | 3
+ 2 | 11223344 | M_2 | 100 | 2
+ 3 | 10203040 | M_4 | 50 | 2
+ 4 | 111222333| M_3 | 100 | 20
+ 5 | 11112222 | M_1 | 30 | 4
+ 6 | 22223333 | M_3 | 150 | 50
+ 7 | 44448888 | M_3 | 50 | 100
+ 
 Os dados do ficheiro deverão ser automaticamente validados e carregados para um array de registos.
 Cada registo da estrutura de dados deverá conter toda a informação de um determinado pedido.
 2. Leitura de um ficheiro de texto contendo os dados dos meios de mobilidade urbana. Considere a
