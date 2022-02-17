@@ -21,6 +21,7 @@ completar a distância definida pelo utilizador.
 Apresenta-se, a seguir, com cor azul, um exemplo de conteúdo de um ficheiro com sete pedidos:
 Número
 Ordem | NIF | Código | Tempo (min) | Distância (km)
+------:|:-----:|:-------:|:----------:|-----------:
   1 | 12345678 | M_1 | 75 | 3
   2 | 11223344 | M_2 | 100 | 2
   3 | 10203040 | M_4 | 50 | 2
