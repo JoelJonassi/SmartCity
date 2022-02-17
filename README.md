@@ -33,11 +33,13 @@ Cada registo da estrutura de dados deverá conter toda a informação de um dete
 2. Leitura de um ficheiro de texto contendo os dados dos meios de mobilidade urbana. Considere a
 informação estruturada em várias linhas. Cada linha identifica sequencialmente o código de identificação
 do meio de mobilidade, o seu tipo, o custo de utilização por minuto e a sua autonomia.
+
 Apresenta-se a seguir, com cor azul, um exemplo de conteúdo de um ficheiro.
+
 Código | Tipo | Custo | Autonomia
  M_1 | Trotinete | 0,20 | 15
  M_2 | Trotinete | 0,20 | 13
- M_3 | Carro | 0,80 |c320
+ M_3 | Carro | 0,80 | 320
  M_4 | Bicicleta | 0,30 | 19
 Os dados do ficheiro deverão ser automaticamente validados e carregados para um array de registos.
 Cada registo da estrutura de dados deverá conter toda a informação de um determinado meio elétrico.
