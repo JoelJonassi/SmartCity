@@ -39,10 +39,12 @@ do meio de mobilidade, o seu tipo, o custo de utilização por minuto e a sua au
 Apresenta-se a seguir, com cor azul, um exemplo de conteúdo de um ficheiro.
 
 Código | Tipo | Custo | Autonomia
+--|---|---|--
  M_1 | Trotinete | 0,20 | 15
  M_2 | Trotinete | 0,20 | 13
  M_3 | Carro | 0,80 | 320
  M_4 | Bicicleta | 0,30 | 19
+ 
 Os dados do ficheiro deverão ser automaticamente validados e carregados para um array de registos.
 Cada registo da estrutura de dados deverá conter toda a informação de um determinado meio elétrico.
 3
@@ -62,9 +64,12 @@ ordem crescente de número de ordem do pedido. Cada linha deverá conter o núme
 número de identificação fiscal do utilizador, o tempo de início de utilização, o tempo de término de utilização, a
 autonomia inicial e o código do meio elétrico atribuído.
 Apresenta-se a seguir, com cor azul, um exemplo de listagem para o meio de mobilidade elétrica M_3:
+
 Número | Ordem | NIF | Tempo Início | Tempo Término | Autonomia | Inicial Código
+--|---|---|--|----|---
   4 | 111222333 | 0 | 100 | 320 | M_3
   6 | 22223333 | 100 | 250 | 300 | M_3
   7 | 44448888 | 250 | 300 | 250 | M_3
+  
 12. Armazenamento dos pedidos de utilização em ficheiro;
 13. Armazenamento dos meios de mobilidade elétrica em ficheiros.
