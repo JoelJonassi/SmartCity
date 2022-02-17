@@ -1,4 +1,4 @@
-# Programa-o-Imperativa
+# Smart City project
 
 Novas formas de mobilidade, nomeadamente aquelas que ocorrem entre distâncias curtas através de meios
 elétricos, têm surgido ao longo dos últimos anos. Esta transformação na forma de mobilidade urbana, fator
@@ -65,7 +65,7 @@ número de identificação fiscal do utilizador, o tempo de início de utilizaç
 autonomia inicial e o código do meio elétrico atribuído.
 Apresenta-se a seguir, com cor azul, um exemplo de listagem para o meio de mobilidade elétrica M_3:
 
-Número | Ordem | NIF | Tempo Início | Tempo Término | Autonomia | Inicial Código
+Número Ordem | NIF | Tempo Início | Tempo Término | Autonomia | Inicial Código
 --|---|---|--|----|---
   4 | 111222333 | 0 | 100 | 320 | M_3
   6 | 22223333 | 100 | 250 | 300 | M_3
