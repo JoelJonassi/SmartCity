@@ -11,7 +11,7 @@ que os meios de mobilidade elétrica serão sempre levantados e entregues pelos 
 Apresente uma solução para a gestão de meios de mobilidade elétrica num contexto de uma smart-city, aplicando o
 paradigma de programação imperativa (linguagem de programação C) de modo a responder às seguintes
 operações:
-2
+
 1. Leitura de um ficheiro de texto contendo os dados de vários pedidos de utilização de meios de mobilidade
 elétrica. Considere a informação estruturada em várias linhas. Cada linha identifica sequencialmente o
 número de ordem do pedido, o número de identificação fiscal do utilizador, o código do meio de
@@ -32,6 +32,7 @@ Número Ordem | NIF | Código | Tempo (min) | Distância (km)
  
 Os dados do ficheiro deverão ser automaticamente validados e carregados para um array de registos.
 Cada registo da estrutura de dados deverá conter toda a informação de um determinado pedido.
+
 2. Leitura de um ficheiro de texto contendo os dados dos meios de mobilidade urbana. Considere a
 informação estruturada em várias linhas. Cada linha identifica sequencialmente o código de identificação
 do meio de mobilidade, o seu tipo, o custo de utilização por minuto e a sua autonomia.
@@ -47,18 +48,26 @@ Código | Tipo | Custo | Autonomia
  
 Os dados do ficheiro deverão ser automaticamente validados e carregados para um array de registos.
 Cada registo da estrutura de dados deverá conter toda a informação de um determinado meio elétrico.
-3
+
 3. Inserção de um novo meio de mobilidade elétrica;
+
 4. Remoção de um meio de mobilidade elétrica a partir do seu código;
+
 5. Inserção de um novo pedido de utilização;
+
 6. Remoção de um pedido de utilização a partir do seu código;
+
 7. Listagem dos dados de todos os meios de mobilidade elétrica;
+
 8. Listagem de todo os pedidos de utilização;
+
 9. Cálculo do custo associado a um pedido de utilização a partir da indicação do seu número de ordem;
+
 10. Distribuição dos meios de mobilidade pelos vários utilizadores, respeitando a ordem dos pedidos, o meio
 elétrico solicitado por cada utilizador, e as necessidades em termos de distância. Caso a autonomia pretendida
 não seja suficiente então procurar atribuir, se possível, um outro meio de mobilidade, do mesmo tipo, com
 autonomia suficiente.
+
 11. Listagem do plano de utilização de um determinado meio de mobilidade elétrica, a partir do seu código, por
 ordem crescente de número de ordem do pedido. Cada linha deverá conter o número de ordem do pedido, o
 número de identificação fiscal do utilizador, o tempo de início de utilização, o tempo de término de utilização, a
@@ -67,9 +76,10 @@ Apresenta-se a seguir, com cor azul, um exemplo de listagem para o meio de mobil
 
 Número Ordem | NIF | Tempo Início | Tempo Término | Autonomia | Inicial Código
 --|---|---|--|----|---
-  4 | 111222333 | 0 | 100 | 320 | M_3
-  6 | 22223333 | 100 | 250 | 300 | M_3
-  7 | 44448888 | 250 | 300 | 250 | M_3
+ 4 | 111222333 | 0 | 100 | 320 | M_3
+ 6 | 22223333 | 100 | 250 | 300 | M_3
+ 7 | 44448888 | 250 | 300 | 250 | M_3
   
 12. Armazenamento dos pedidos de utilização em ficheiro;
+
 13. Armazenamento dos meios de mobilidade elétrica em ficheiros.
