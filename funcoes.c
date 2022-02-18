@@ -14,35 +14,6 @@
 #include "funcoes.h"
 
 
-/**Alinea - Resolver problema
- * Lê os ficheiros os dados da atribuição
- * @param nomeFicheiro = 1.Pedidos.txt
- * @param plano
- * @return
- */
-int ler_atribuicao(const char *nomeFicheiro, Plano plano[])
-{
-    FILE *af;
-    int tot = 0;
-    af = fopen(nomeFicheiro, "r");
-    if (af == NULL)
-        perror("Error");
-    else
-    {
-        int i = 0;
-        while (fscanf(af, "%d %d %d %d %d %s\n", &plano[i].nr_ordem, &plano[i].nif, &plano[i].tempInicial,
-                      &plano[i].tempFinal, &plano[i].autonomia, plano[i].codigo) != EOF)
-        {
-            if(plano[i].nr_ordem != 0)
-            {
-                i++;
-                tot = i;
-            }
-        }
-    }
-    fclose(af);
-    return  tot;
-}
 
 /**Alinea 1
  * Lê os ficheiros os dados dos pedidos
@@ -50,13 +21,14 @@ int ler_atribuicao(const char *nomeFicheiro, Plano plano[])
  * @param v
  * @return
  */
-int ler_pedidos(const char *nomeFicheiro, Pedido v[])
+int ler_pedidos(const char *nomeFicheiro, Pedido v[], int *n)
 {
     FILE *af;
-    int tot = 0;
-    af = fopen(nomeFicheiro, "r");
-    if (af == NULL)
+    af = fopen(nomeFicheiro, "a+"); //Abertura, escrita e acrescentar
+    if (af == NULL) {
         perror("Error");
+        return 0;
+    }
     else
     {
         int i = 0;
@@ -65,14 +37,12 @@ int ler_pedidos(const char *nomeFicheiro, Pedido v[])
             if(v[i].nr_ordem != 0)
             {
                 i++;
-                tot = i;
+                *n = i;
             }
-
-
         }
     }
     fclose(af);
-    return  tot;
+    return  1;
 }
 /**Auxiliar da alinea 9
  * Para Calculo
@@ -93,29 +63,30 @@ void mudarCarater(char custo[], char caraterAntigo, char caraterNovo)
   * Alinea 2
   * Lê os ficheiros e guarda os dados dos meios de transporte
   * @param nomeFicheiro = 2- TipoTransporte
-  * @param v
+  * @param transporte
   * @return
   */
-int ler_meio_Transporte(const char *nomeFicheiro, MeioEletrico v[])
+int ler_meio_Transporte(const char *nomeFicheiro, MeioEletrico transporte[], int *n)
 {
     FILE *af;
-    int tot = 0;
-    af = fopen(nomeFicheiro, "r");
-    if (af == NULL)
+    af = fopen(nomeFicheiro, "r+"); //lê e rescreve todo conteudo
+    if (af == NULL) {
         perror("Error");
+        return 0;
+    }
     else
     {
         int i = 0;
-        while (fscanf(af, "%s %s %s %d\n", v[i].codigo, v[i].tipo, v[i].custo, &v[i].autonomia) != EOF)
+        while (fscanf(af, "%s %s %s %d\n", transporte[i].codigo, transporte[i].tipo, transporte[i].custo, &transporte[i].autonomia) != EOF)
         {
-            mudarCarater(v[i].custo,',','.'); // Atera a virgula para ponto - Falta criar uma função para reverter o processo
+            mudarCarater(transporte[i].custo, ',', '.'); // Atera a virgula para ponto - Falta criar uma função para reverter o processo
 
             i++;
-            tot = i;
+            *n = i;
         }
     }
     fclose(af);
-    return  tot;
+    return  1;
 }
 
 
@@ -147,24 +118,22 @@ void floatToString(float number, char* buffer){
  * @param pedido
  * @param quantidadeAtletas
  */
-void guardar_pedidos(Pedido v[], const char *nomeFicheiro, int *n)
+int guardar_pedidos(Pedido v[], const char *nomeFicheiro, int *n)
 {
-    //%d %d %s %d %d
     FILE* fp;
-    fp = fopen(nomeFicheiro,"w");   // "wt" write text  "rt" read text  "at" append
-    if (fp == NULL)
+    fp = fopen(nomeFicheiro,"w");   // le e reescreve todo conteudo
+    if (fp == NULL) {
         perror("Error");
+        return 0;
+    }
     else {
         for (int i = 0; i < *n; i++) {
             fprintf(fp, "%d %d %s %d %d\n", v[i].nr_ordem, v[i].nif, v[i].codigo, v[i].tempo, v[i].distancia);
-            //        fprintf(fp, "%[^]", pedido[i].codigo);
-            //        fprintf(fp, "%d", pedido[i].distancia);
-            //        fprintf(fp, "%d", pedido[i].nr_ordem);
-            //        fprintf(fp, "%d", pedido[i].nif);
-            //        fprintf(fp, "%d\n", pedido[i].tempo);
         }
+
     }
     fclose(fp);
+    return 1;
 }
 
 /**Alinea 13
@@ -172,91 +141,83 @@ void guardar_pedidos(Pedido v[], const char *nomeFicheiro, int *n)
  * @param c
  * @param quantidadeAtletas
  */
-void guardar_meio_Transporte(MeioEletrico v[],const char *nomeFicheiro, int *n)
+int guardar_meio_Transporte(MeioEletrico transporte[], const char *nomeFicheiro, int *n)
 {
     FILE* fp;
-    fp = fopen(nomeFicheiro,"w");   // "wt" write text  "rt" read text  "at" append
-    for(int i = 0; i < *n; i++)
-    {
-        fprintf(fp, "%s %s %s %d\n", v[i].codigo, v[i].tipo, v[i].custo, v[i].autonomia);
-        ///mudarCarater(transporte[i].custo,".",",");
-//        fprintf(fp, "%s", transporte[i].codigo);
-//        fprintf(fp, "%s", transporte[i].tipo);
-//        fprintf(fp, "%s", transporte[i].custo);
-//        fprintf(fp, "%d\n", transporte[i].autonomia);
+    fp = fopen(nomeFicheiro,"w");
+    if (fp == NULL) {
+        perror("Error");
+        return 0;
+    }
+    else {
+        for (int i = 0; i < *n; i++) {
+            fprintf(fp, "%s %s %s %d\n", transporte[i].codigo, transporte[i].tipo, transporte[i].custo,
+                    transporte[i].autonomia);
+            //mudarCarater(transporte[i].custo,".",",");
+        }
     }
     fclose(fp);
+    return 1;
 }
 
+// Ordenar por ordem crescente de número de ordem
+void ordenarNrOrdem(Pedido Pedidos[], int *n) {
+    Pedido aux;
+    for (int i = 0; i < *n; i++)
+        for (int j = i+1; j < *n; j++)
+            if (Pedidos[i].nr_ordem > Pedidos[j].nr_ordem) {
+                aux = Pedidos[i];
+                Pedidos[i] = Pedidos[j];
+                Pedidos[j] = aux;
+            }
+}
 /**Alinea
  *Armazenamento atribuição dos meios de mobilidade elétrica aos repectivos utilizadores de acordo com os pedidos em ficheiro
  * @param c
  * @param quantidadeAtletas
  */
-void guardar_atribuicao(Plano plano[], MeioEletrico transporte[], Pedido pedido[], const char *nomeFicheiro, int tInicio, int tFinal, int *n)
+void distribMeiosMobili(Plano plano[], MeioEletrico transporte[], Pedido pedido[], int *totTransporte, int *totPedido)
 {
-    FILE* fp;
-    fp = fopen(nomeFicheiro,"w");   // "wt" write text  "rt" read text  "at" append
-    for(int j = 0; j < *n; j++)
+    for(int j = 0; j < *totPedido; j++)
     {
-        for(int i = 0; i < *n; i++) {
+        for(int i = 0; i < *totTransporte; i++) {
             if (strcmp(transporte[i].codigo, pedido[j].codigo) == 0 && transporte[i].autonomia >= pedido[j].distancia)
             {
                 plano[j].nif = pedido[j].nif;
                 plano[j].nr_ordem = pedido[j].nr_ordem;
-                plano[j].autonomia = transporte[i].autonomia;
+                plano[j].autonomia = transporte[i].autonomia - pedido[j].distancia;
+                transporte[i].autonomia = plano[j].autonomia;
                 strcpy(plano[j].codigo, pedido[j].codigo);
-                plano[j].tempInicial = tInicio;
-                plano[j].tempFinal = tFinal;
-                fprintf(fp, "%d %d %d %d %d %s\n", plano[j].nr_ordem, plano[j].nif, plano[j].tempInicial,
-                        plano[j].tempFinal, plano[j].autonomia, plano[j].codigo);
+                plano[j].tempInicial = 0;
+                plano[j].tempFinal = 0;
             }
             else
                 continue;
-
-        }
-
-    }
-    fclose(fp);
-}
-
-int listarPlano(const char *nomeFicheiro, Plano plano[], char cod[5],int *n)
-{
-    // declarar as variaveis
-    &plano[i].nr_ordem, &plano[i].nif, &plano[i].tempInicial,
-            &plano[i].tempFinal, &plano[i].autonomia, plano[i].codigo)
-    FILE *af;
-    int tot = 0;
-    af = fopen(nomeFicheiro, "r");
-    if (af == NULL)
-        perror("Error");
-    else
-    {
-        int i = 0;
-        while (fscanf(af, "%d %d %d %d %d %s\n", &plano[i].nr_ordem, &plano[i].nif, &plano[i].tempInicial,
-                      &plano[i].tempFinal, &plano[i].autonomia, plano[i].codigo) != EOF)
-        {
-            if(plano[i].nr_ordem != 0 && strcmp(cod, plano) =  1)
-            {
-                // coloca no array oque deve ser mostrado
-                i++;
-                tot = i;
-            }
         }
     }
-    fclose(af);
-    return  tot;
 }
 
 /**
- * Falta a alinea 10 e 11
- * @file funcoes.c
- * @author Joel Jonassi
- * @brief Smart City - implementation of functions
- * @version 0.1
- * @date 2021-12-17
- * @copyright Copyright (c) 2021
+ * Mostrar o plano
+ * @param nomeFicheiro
+ * @param plano
+ * @param cod
+ * @param totPlano
+ * @return
  */
+void listarPlano(Plano plano[], char codigo[], int *totPlano)
+{
+    for (int i = 0; i < *totPlano; i++)
+    {
+        if(strcmp(plano[i].codigo, codigo) == 0) {
+            printf("    %d %d %d %d %d %s\n", plano[i].nr_ordem, plano[i].nif, plano[i].tempInicial,
+                   plano[i].tempFinal, plano[i].autonomia, plano[i].codigo);
+
+        }
+    }
+}
+
+
 
 /**
  * Carregar o ficheiro e comfirmar os dados comparando o nif  e o transporte atribuido com outras estrututuras
@@ -283,7 +244,7 @@ int listarPlano(const char *nomeFicheiro, Plano plano[], char cod[5],int *n)
  * @param v
  * @param n
  */
-void viewFileFirst(MeioEletrico *v, int *n){
+void listarTransportes(MeioEletrico *v, int *n){
     for(int i = 0; i < *n; i++){
         printf("%s %s %s %d\n", v[i].codigo,v[i].tipo,v[i].custo, v[i].autonomia);
     }
@@ -296,7 +257,7 @@ void viewFileFirst(MeioEletrico *v, int *n){
  * @param v
  * @param n
  */
-void viewFileSecond(Pedido *v, int *n)
+void listarPedidos(Pedido *v, int *n)
 {
     for(int i = 0; i < *n; i++){
         printf("%d %d %s %d %d\n", v[i].nr_ordem, v[i].nif, v[i].codigo, v[i].tempo, v[i].distancia);
@@ -312,7 +273,7 @@ void viewFileSecond(Pedido *v, int *n)
  * @param aut
  * @return
  */
-int existeTransporte(MeioEletrico transporte[], char cod[4], int aut)
+int existeTransporte(MeioEletrico transporte[], char cod[4], int aut, char tipo[5])
 {
     int i=0;
     while (i != 1)
@@ -361,7 +322,7 @@ int existePedido(MeioEletrico transporte[], Pedido pedido[], int nif, char cod[4
   */
 int inserirMeioElectrico(MeioEletrico transporte[], char codigo[4], char tipo[4], char custo[5], int autonomia, int *n)
 {
-    if (existeTransporte(transporte,codigo,autonomia)==-1)
+    if (existeTransporte(transporte,codigo,autonomia, tipo)==-1)
     {
         strcpy(transporte[*n].codigo, codigo);
         strcpy(transporte[*n].tipo, tipo);
@@ -417,8 +378,12 @@ int removerTransporte(MeioEletrico transporte[], char *cod, int *n){
   */
 int inserirPedidoUtiliz(Pedido pedido[], MeioEletrico transporte[], int nr_ordem, int nif, char codigo[4], int tempo, int distancia, int *n)
 {
-    int i = 1;
-    if (existePedido(transporte, pedido,nif, codigo, transporte[1].autonomia) == -1)
+    int aux = 0;
+    for(int i = 0; i  < *n; i++){
+        if (nr_ordem == pedido[i].nr_ordem)
+            aux++;
+    }
+    if ((existePedido(transporte, pedido,nif, codigo, distancia) == -1) && (aux == 0))
     {
         strcpy(pedido[*n].codigo, codigo);
         pedido[*n].nr_ordem= nr_ordem;
@@ -463,18 +428,22 @@ int removerPedido(Pedido pedido[], int nr_ordem, int *n){
  * @param n
  * @return
  */
-float custUtiliz(MeioEletrico transporte[], Pedido pedido[], int nr_ordem, int *utilizador, char tipo[], int *n){
-   float custo = 0;
-   float aux = 0;
-    for(int i = 0; i < *n; i++)
+float custUtiliz(MeioEletrico transporte[], Pedido pedido[], int nr_ordem, int *totTransporte, int *totPedido){
+    float custo;
+    float aux = 0;
+    for(int i = 0; i < *totPedido; i++)
     {
-        if ((pedido[i].nr_ordem == nr_ordem))
+
+        if (pedido[i].nr_ordem == nr_ordem)
         {
-            mudarCarater(transporte[i].custo,',','.');
-            custo = stringToFloat(transporte[i].custo);
-            aux = (float) pedido[i].distancia * custo; //Converter o char custo em float
-            *utilizador = pedido[i].nif;
-            strcpy(tipo,transporte[i].tipo);
+
+            for(int j = 0; j < *totTransporte; j ++) {
+                if(strcmp(pedido[i].codigo,transporte[j].codigo) == 0) {
+                    mudarCarater(transporte[j].custo, ',', '.');
+                    custo = stringToFloat(transporte[j].custo);
+                    aux = (float) pedido[i].distancia * custo; //Converter o char custo em float
+                }
+            }
             return aux;
         }
     }
@@ -483,28 +452,49 @@ float custUtiliz(MeioEletrico transporte[], Pedido pedido[], int nr_ordem, int *
 }
 
 
-/** Opcional "Melhorar no final"
+/**
  * // Apresentação do menu e leitura da opcao escolhida
  * @return
  */
 int menu()
 {
     int opcao;
-    do { printf("M E N U\n");
-        printf("1 - Inserir Meio de Mobilidae\n");
-        printf("2 - Consultar Meio De Mobilidade\n");
-        printf("3 - Listar Mobilidade\n"); //
-        printf("4 - Listar Pedidos\n");
-        printf("5 - Remover Pedidos\n");
-        printf("6 - Guardar\n");
-        printf("7 - Ordenar pelo Ordenar crescente\n");
-        printf("8 - Ordenar pelo Ordenar decrescente\n");
-        printf("9 - Guardar em ficheiro\n");
-        printf("10 - Ler\n");
+    do {
+        printf("M E N U\n");
+        printf("Ler Ficheiros\n");
+        printf("    1 Pedidos\n");
+        printf("    2 Meios de Mobilidade\n");
+        printf("Inserir Dados\n");
+        printf("    3 Pedidos\n");
+        printf("    4 Meios de Mobilidaade\n");
+        printf("Remover Dados\n");
+        printf("    5 Pedidos\n");
+        printf("    6 Meios de Mobilidade\n");
+        printf("Consultas\n");
+        printf("    7 Listar Mobilidade\n");
+        printf("    8 Listar Pedidos\n");
+        printf("    9 Plano de Utilizacao\n");
+        printf("Armazenar Dados em ficheiros\n");
+        printf("   10 - Armazenar Pedidos\n");
+        printf("   11 - Armazenar Meios de Mobilidade\n");
+        printf("Custo de um pedido\n");
+        printf("    12 Indicar o nr do pedido\n");
+        printf("13 Distribuir os meios de Mobilidade\n");
+        printf("14 Limpar Tela\n");
         printf("0 - Sair\n");
-        printf("Opcao?");
+        printf("Opcao?\n");
         scanf("%d",&opcao);
     }
-    while ((opcao<0)||(opcao>10));
+
+    while ((opcao<0)||(opcao>14));
     return(opcao);
+}
+/**
+ * Limpar a tela
+ */
+void limparTela(){
+    for(int linha = 0; linha < 35; linha++)
+    {
+        printf( "\n" );
+    }
 }

@@ -18,7 +18,6 @@ typedef struct _pedido
     char codigo[3];
     int distancia;
     int tempo;
-    struct _etapa *next;
 } Pedido;
 
 typedef struct _meio_eletrico
@@ -33,40 +32,31 @@ typedef struct _plano{
     char codigo[5];
     int nr_ordem;
     int nif;
-   // struct _meio_eletrico transporte;
-    //struct _pedido pedido;
     int tempInicial;
     int tempFinal;
     int autonomia;
 }Plano;
 
 
-int ler_meio_Transporte(const char *nomeFicheiro, MeioEletrico *v);
-int ler_pedidos(const char *nomeFicheiro, Pedido v[]);
-int ler_atribuicao(const char *nomeFicheiro, Plano plano[]);
-void guardar_meio_Transporte(MeioEletrico transporte[],const char *nomeFicheiro, int *n);
-void guardar_pedidos(Pedido pedido[], const char *nomeFicheiro, int *n);
-void guardar_atribuicao(Plano plano[], MeioEletrico transporte[], Pedido pedido[], const char *nomeFicheiro, int tInicio, int tFinal, int *n);
-void viewFileFirst(MeioEletrico *array,int *n);
-void viewFileSecond(Pedido *array,int *n);
+int ler_meio_Transporte(const char *nomeFicheiro, MeioEletrico transporte[], int *n);
+int ler_pedidos(const char *nomeFicheiro, Pedido v[], int *n);
+int guardar_meio_Transporte(MeioEletrico transporte[],const char *nomeFicheiro, int *n);
+int guardar_pedidos(Pedido pedido[], const char *nomeFicheiro, int *n);
+void ordenarNrOrdem(Pedido Pedidos[], int *n);
+void listarPlano(Plano plano[], char codigo[], int *totPlano);
+void listarTransportes(MeioEletrico *v, int *n);
+void listarPedidos(Pedido *v, int *n);
+void distribMeiosMobili(Plano plano[], MeioEletrico transporte[], Pedido pedido[], int *totTransporte, int *totPedido);
 int existePedido(MeioEletrico transporte[], Pedido pedido[], int nif, char *cod, int aut);
-int existeTransporte(MeioEletrico transporte[], char *cod, int aut);
+int existeTransporte(MeioEletrico transporte[], char *cod, int aut, char tipo[5]);
 int inserirMeioElectrico(MeioEletrico transporte[], char *codigo, char tipo[4], char custo[5], int autonomia, int *n);
-float custUtiliz(MeioEletrico transporte[], Pedido pedido[], int nr_ordem, int *utilizador, char tipo[], int *n);
+float custUtiliz(MeioEletrico transporte[], Pedido pedido[], int nr_ordem, int *totTransporte, int *totPedido);
 int inserirPedidoUtiliz(Pedido pedido[],MeioEletrico transporte[], int nr_ordem, int nif, char codigo[4], int tempo, int distancia, int *n);
 int removerPedido(Pedido pedido[], int nr_ordem, int *n);
 int removerTransporte(MeioEletrico transporte[], char *cod, int *n);
 void mudarCarater(char custo[], char caraterAntigo, char caraterNovo);
+void floatToString(float number, char* buffer);
 int menu();
+void limparTela();
 
-/*
-void apresentar_concorrentes(Piloto *lista);
-extern void apresentConcorrentes(char *nomeFicheiro);
-extern int distanciaEtapas(char *nomeFicheiro);
-extern Piloto *provaValida(Etapa* etapas, Piloto *pilotos, int tempo, char *inicio, char *fim);
-extern int rapidoLento(char *nomeFicheiro, int x, int *v, int s);
-Etapa *guardar_etapa(Etapa *todas_etapas,int id, int tempo, char *etapa_inicial,char *etapa_final, int distancia);
-Prova *guardar_prova(Prova *todas_provas, int id, char *etapa, const int qt_etapa, const int n_concorrentes);
-Piloto *guardar_piloto(Piloto *todos_pilotos, int id, char *nome, char *carro);
-*/
 #endif //PI_REPOSITORY_FUNCOES_H

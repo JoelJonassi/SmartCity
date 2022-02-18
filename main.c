@@ -11,70 +11,132 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "funcoes.h"
-
+#define TAMANHO 200
 
 int main()
 {
+
     //Variáveis
-    MeioEletrico transporte[10];
-    Pedido  pedido[10];
-    Plano plano[10];
-    int totTransporte, totPedido, totPlano;
-    float a = 0;
-    int b;
+    MeioEletrico transportes[TAMANHO];
+    Pedido  pedidos[TAMANHO];
+    Plano planos[TAMANHO];
+    int totTransporte, totPedido, totPlano, opcao, autonomia, distancia, nr_ordem, nif, tempo, res;
+    char codigo[5], tipo[10], custoStr[5];
+    float custoFloat;
 
-    //Leitura de ficheiros texto
-    totTransporte = ler_meio_Transporte("C:\\Users\\Asus\\CLionProjects\\ESI_PI_19698 - REPO\\pi_repository\\2-TipoTransporte.txt", transporte);
-    totPedido = ler_pedidos("C:\\Users\\Asus\\CLionProjects\\ESI_PI_19698 - REPO\\pi_repository\\1-Pedidos.txt", pedido);
-    guardar_pedidos(pedido, "C:\\Users\\Asus\\CLionProjects\\ESI_PI_19698 - REPO\\pi_repository\\1-Pedidosv2.txt", &totPedido);
-    guardar_meio_Transporte(transporte,"C:\\Users\\Asus\\CLionProjects\\ESI_PI_19698 - REPO\\pi_repository\\2-TipoTransportev2.txt", &totTransporte);
+    do
+    {
+        fflush(stdin);
+        opcao = menu();
 
-    //totPlano = ler_atribuicao("C:\\Users\\Asus\\CLionProjects\\ESI_PI_19698 - REPO\\pi_repository\\1-Atribuicao.txt", plano);
-    guardar_atribuicao(plano, transporte, pedido, "C:\\Users\\Asus\\CLionProjects\\ESI_PI_19698 - REPO\\pi_repository\\1-Atribuicao.txt", 0, 250, &totPedido);
-    printf("PPPPPPPPPPPPP: %d", plano[2].nr_ordem);
-    //Listar transportes
-    puts("---------------TRANSPORTES--------------");
-    viewFileFirst(transporte, &totTransporte);
-    //Listar pedidos
-    puts("-----------------PEDIDOS-----------------");
-    viewFileSecond(pedido,&totPedido);
+        switch(opcao)
+        {case 1:
+                res = ler_pedidos("1-Pedidos.txt", pedidos, &totPedido);
+                guardar_pedidos(pedidos, "1-Pedidos.txt", &totPedido);
+                if (res==1) {
+                    printf("Ficheiro lido com sucesso!\n");
+                }
+                else printf("Falha na leitura do ficheiro!\n");
+                break;
+            case 2:
+                res = ler_meio_Transporte("2-TipoTransporte.txt", transportes, &totTransporte);
+                guardar_meio_Transporte(transportes, "2-TipoTransporte.txt", &totTransporte);
+                if (res==1) {
+                    printf("Ficheiro lido com sucesso!\n");
+                }
+                else printf("Falha na leitura do Ficheiro!\n");
+                break;
+            case 3:
+                printf("Numero de Ordem? ");
+                scanf("%d",&nr_ordem);
+                printf("Numero de Identificacao Fiscal?");
+                scanf("%d",&nif);
+                printf("Codigo do Meio de Mobilidae?");
+                scanf("%s", codigo);
+                printf("Tempo?");
+                scanf("%d",&tempo);
+                printf("Distancia?");
+                scanf("%d",&distancia);
+                res = inserirPedidoUtiliz(pedidos, transportes, nr_ordem, nif, codigo, tempo, distancia, &totPedido);
+                if (res==1) {
+                    printf("Inserido com sucesso!\n");
+                }
+                else printf("Falha na Insercao!\n");
+                break;
+            case 4:
 
-    //Remover pedidos
-    removerPedido(pedido, 6,&totPedido);
-    removerPedido(pedido, 7,&totPedido);
-    removerPedido(pedido, 1,&totPedido);
+                printf("Codigo?");
+                scanf("%s", codigo);
+                printf("Tipo de Mobilidade?");
+                scanf(" %[^\n]s",tipo);
+                printf("Custo?");
+                scanf("%s", custoStr);
+                printf("Autonomia?");
+                scanf(" %d", &autonomia);
+                res = inserirMeioElectrico(transportes, codigo, tipo, custoStr, autonomia, &totTransporte);
+                if (res==1) {
+                    printf("Inserido com sucesso!\n");
+                }
+                else printf("Falha na Insercao!\n");
+                break;
+            case 5:
+                printf("Indicar o numero de ordem do Pedido: ");
+                scanf("%d", &nr_ordem);
+                res = removerPedido(pedidos, nr_ordem, &totPedido);
+                if (res==1) {
+                    printf("Removido com sucesso!");
+                }
+                else printf("Não removido!");
+                break;
+            case 6:printf("Indicar o Codigo do Meio de Mobilidade: ");
+                scanf("%s", codigo);
+                res = removerTransporte(transportes, codigo, &totTransporte);
+                if (res==1) {
+                    printf("Removido com sucesso!\n");
+                }
+                else printf("Nao removido!\n");
+                break;
+            case 7:
+                listarTransportes(transportes, &totTransporte);
+                break;
 
-    //Remover transportes
-    removerTransporte(transporte,"M_1",&totTransporte);
-    removerTransporte(transporte,"M_4",&totTransporte);
+            case 8:
+                listarPedidos(pedidos, &totPedido);
+                break;
+            case 9:
+                printf("Insira o codigo do Meio de Mobilidade: ");
+                scanf("%s", codigo);
+                listarPlano(planos, codigo, &totPedido);
+                break;
+            case 10:
+                res = guardar_pedidos(pedidos, "C:\\Users\\Asus\\CLionProjects\\ESI_PI_19698 - REPO\\pi_repository\\1-Pedidos.txt", &totPedido);
+                if (res==1) {
+                    printf("Pedidos de utilizacao Armazenados no Ficheiro!\n");
+                }
+                else printf("Falha no Armazenamento!\n");
+                break;
+            case 11:
+                res = guardar_meio_Transporte(transportes, "C:\\Users\\Asus\\CLionProjects\\ESI_PI_19698 - REPO\\pi_repository\\2-TipoTransporte.txt", &totTransporte);
+                if (res==1) {
+                    printf("Meios de Mobilidade eletrica Armazenados no Ficheiro!\n");
+                }
+                else printf("Falha no Armazenamento!\n");
+                break;
+            case 12:
+                printf("Insira o numero de ordem do Pedido: ");
+                scanf("%d", &nr_ordem);
+                custoFloat = custUtiliz(transportes , pedidos, nr_ordem, &totTransporte, &totPedido);
+                printf("****Numero de ordem: %d -> preco: %f ******\n\n", nr_ordem, custoFloat);
+                break;
+            case 13:
+                ordenarNrOrdem(pedidos, &totPedido);
+                distribMeiosMobili(planos, transportes, pedidos, &totTransporte, &totPedido);
+                break;
+            case 14:
+               limparTela();
+        }
 
-    //Inserir novo meio de transporte
-    puts("---------------------INSERIR PEDIDOS-------------------");
-    inserirMeioElectrico(transporte,"M_7", "mota", "0,44", 66, &totTransporte);
-    //Inserir novo pedido
-    inserirPedidoUtiliz(pedido, transporte, 6, 287060357, "M_7", 33, 17, &totPedido);
-
-    puts("---------------PEDIDOS NAO REMOVIDOS--------------");
-    viewFileSecond(pedido,&totPedido);
-    puts("---------------TRANSPORTES NAO REMOVIDOS--------------");
-    viewFileFirst(transporte, &totTransporte);
-
-    //Atualizar ficheiros os removidos, os não removidos, os novos inseridos ou seja guardar em ficheiros
-
-
-    //Cálculo do custo associado a um pedido de utilização a partir da indicação do seu número de ordem
-    //Criar um ciclo for para facilitar a listagem do custo associado ao pedido
-    puts("------------CALCULO ASSOCIADO A UM PEDIDO DE UTILIZACAO--------------");
-    int user;
-    char tipo[15];
-    a = custUtiliz(transporte ,pedido, 3, &user, tipo, &totTransporte);
-    printf("custo: %f -> utilizador: %d -> tipo: %s", a, user, tipo);
-
-    puts("--------------------Guardar informação em ficheiros------------------------");
-    guardar_pedidos(pedido, "C:\\Users\\Asus\\CLionProjects\\ESI_PI_19698 - REPO\\pi_repository\\1-Pedidosv2.txt", &totPedido);
-    //AO GUARDAR UM NUMERO COM PONTO MODIFICAR O PONTO PARA VIRGULA
-    guardar_meio_Transporte(transporte,"C:\\Users\\Asus\\CLionProjects\\ESI_PI_19698 - REPO\\pi_repository\\2-TipoTransportev2.txt", &totTransporte);
-
+    } while (opcao !=0);
 
 
 }
